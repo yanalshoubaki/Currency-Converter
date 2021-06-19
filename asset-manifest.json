@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.d8ea9131.chunk.css",
-    "main.js": "/static/js/main.0e0a8d6e.chunk.js",
-    "main.js.map": "/static/js/main.0e0a8d6e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.c793e9fa.js",
-    "runtime-main.js.map": "/static/js/runtime-main.c793e9fa.js.map",
-    "static/css/2.425b2a52.chunk.css": "/static/css/2.425b2a52.chunk.css",
-    "static/js/2.60d3ec08.chunk.js": "/static/js/2.60d3ec08.chunk.js",
-    "static/js/2.60d3ec08.chunk.js.map": "/static/js/2.60d3ec08.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.425b2a52.chunk.css.map": "/static/css/2.425b2a52.chunk.css.map",
-    "static/css/main.d8ea9131.chunk.css.map": "/static/css/main.d8ea9131.chunk.css.map",
-    "static/js/2.60d3ec08.chunk.js.LICENSE.txt": "/static/js/2.60d3ec08.chunk.js.LICENSE.txt",
-    "static/media/style.scss": "/static/media/bootstrap-icons.dfd0ea12.woff2"
+    "main.css": "/Currency-Converter/static/css/main.d8ea9131.chunk.css",
+    "main.js": "/Currency-Converter/static/js/main.0e0a8d6e.chunk.js",
+    "main.js.map": "/Currency-Converter/static/js/main.0e0a8d6e.chunk.js.map",
+    "runtime-main.js": "/Currency-Converter/static/js/runtime-main.2d39777b.js",
+    "runtime-main.js.map": "/Currency-Converter/static/js/runtime-main.2d39777b.js.map",
+    "static/css/2.6f20b9e3.chunk.css": "/Currency-Converter/static/css/2.6f20b9e3.chunk.css",
+    "static/js/2.0598d30c.chunk.js": "/Currency-Converter/static/js/2.0598d30c.chunk.js",
+    "static/js/2.0598d30c.chunk.js.map": "/Currency-Converter/static/js/2.0598d30c.chunk.js.map",
+    "index.html": "/Currency-Converter/index.html",
+    "static/css/2.6f20b9e3.chunk.css.map": "/Currency-Converter/static/css/2.6f20b9e3.chunk.css.map",
+    "static/css/main.d8ea9131.chunk.css.map": "/Currency-Converter/static/css/main.d8ea9131.chunk.css.map",
+    "static/js/2.0598d30c.chunk.js.LICENSE.txt": "/Currency-Converter/static/js/2.0598d30c.chunk.js.LICENSE.txt",
+    "static/media/style.scss": "/Currency-Converter/static/media/bootstrap-icons.dfd0ea12.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.c793e9fa.js",
-    "static/css/2.425b2a52.chunk.css",
-    "static/js/2.60d3ec08.chunk.js",
+    "static/js/runtime-main.2d39777b.js",
+    "static/css/2.6f20b9e3.chunk.css",
+    "static/js/2.0598d30c.chunk.js",
     "static/css/main.d8ea9131.chunk.css",
     "static/js/main.0e0a8d6e.chunk.js"
   ]
