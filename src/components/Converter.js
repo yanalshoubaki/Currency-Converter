@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 const Converter = () => {
-  const API_KEY = "051518b6bba2ee9c3ba9cc80397a09d4";
+  const API_KEY = "f7aad7c5b0fd77488f8b";
   // List of currencies and their ISO, fetched from fixer API
   const [currencies, setCurrencies] = useState([]);
   // Amount to be converted stored in state
@@ -15,12 +15,10 @@ const Converter = () => {
 
   useEffect(() => {
     axios
-      .get(`http://api.currencylayer.com/list?access_key=${API_KEY}`)
+      .get(`https://free.currconv.com/api/v7/currencies?apiKey=${API_KEY}`)
       .then((cu) => {
-        const currencies = cu.data;
-        const objectKeys = Object.keys(currencies.currencies);
-        const objectValues = Object.values(currencies.currencies);
-
+        const currencies = cu.data.results;
+        const objectKeys = Object.keys(currencies);
         axios
           .get(
             `https://restcountries.eu/rest/v2/all
@@ -35,19 +33,19 @@ const Converter = () => {
               if (obj === "USD")
                 return {
                   obj: "USD",
-                  currency_name: currencies.currencies["USD"],
+                  currency_name: currencies["USD"].currencyName,
                   flag: "https://restcountries.eu/data/usa.svg",
                 };
               else if (!flagFound)
                 return {
                   ...obj,
-                  currency_name: currencies.currencies[obj],
+                  currency_name: currencies[obj].currencyName,
                   flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/1200px-Blue_question_mark_icon.svg.png",
                 };
               else if (flagFound)
                 return {
                   obj,
-                  currency_name: currencies.currencies[obj],
+                  currency_name: currencies[obj].currencyName,
                   flag: flagFound.flag,
                 };
             });
@@ -74,7 +72,7 @@ const Converter = () => {
     if (amount) {
       axios
         .get(
-          `https://free.currconv.com/api/v7/convert?apiKey=f7aad7c5b0fd77488f8b&q=${pair.from.obj}_${pair.to.obj}&compact=y`
+          `https://free.currconv.com/api/v7/convert?apiKey=${API_KEY}&q=${pair.from.obj}_${pair.to.obj}&compact=y`
         )
         .then((resp) => {
           console.log();
@@ -110,96 +108,108 @@ const Converter = () => {
       <div className="container">
         <div className="row">
           <h1>Currency Converter</h1>
-          <div className="block col-md-6 col-lg-6 com-sm-12">
-            <div className="mb-3">
-              <label className="form-label">Amount</label>
-              <input
-                min="0"
-                type="number"
-                className="form-control"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">From</label>
-              <div className="input-group">
-                <span className="input-group-text">
-                  <img src={pair.from && pair.from.flag} width="50" />
-                </span>
-                <select
-                  className="form-select"
-                  onChange={(e) => handlePair(e.target.value, "from")}
+          {loaded ? (
+            <div className="block col-md-6 col-lg-6 com-sm-12">
+              <div className="mb-3">
+                <label className="form-label">Amount</label>
+                <input
+                  min="0"
+                  type="number"
+                  className="form-control"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">From</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <img
+                      src={pair.from && pair.from.flag}
+                      alt={pair.from && pair.from.obj}
+                      width="50"
+                    />
+                  </span>
+                  <select
+                    className="form-select"
+                    onChange={(e) => handlePair(e.target.value, "from")}
+                  >
+                    <option value={pair.from && pair.from.obj}>
+                      {pair.from && pair.from.currency_name}
+                    </option>
+                    {currencies.map((currency, index) => {
+                      return (
+                        <option
+                          key={index}
+                          defaultValue={currency.obj}
+                          value={currency.obj}
+                        >
+                          {currency.currency_name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className="mb-3 d-flex justify-content-center">
+                <button
+                  className="btn btn-swap"
+                  aria-label="Swap"
+                  onClick={() => setPair({ from: pair.to, to: pair.from })}
                 >
-                  <option value={pair.from && pair.from.obj}>
-                    {pair.from && pair.from.currency_name}
-                  </option>
-                  {currencies.map((currency, index) => {
-                    return (
-                      <option
-                        key={index}
-                        defaultValue={currency.obj}
-                        value={currency.obj}
-                      >
-                        {currency.currency_name}
-                      </option>
-                    );
-                  })}
-                </select>
+                  <i className="bi text-light bi-arrow-repeat"></i>
+                </button>
+              </div>
+              <div className=" mb-3">
+                <label className="form-label">To</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <img
+                      src={pair.to && pair.to.flag}
+                      width="50"
+                      alt={pair.from && pair.from.obj}
+                    />
+                  </span>
+                  <select
+                    className="form-select"
+                    onChange={(e) => handlePair(e.target.value, "to")}
+                  >
+                    <option value={pair.to && pair.to.obj}>
+                      {pair.to && pair.to.currency_name}
+                    </option>
+
+                    {currencies.map((currency, index) => {
+                      return (
+                        <option key={index} value={currency.obj}>
+                          {currency.currency_name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+              {!isEmpty(output) && (
+                <p className="text-light">
+                  {output.amount} {output.from} =<br />
+                  <span>
+                    {output.result} {output.to}
+                  </span>
+                </p>
+              )}
+
+              <div className="mb-3 d-flex justify-content-center">
+                <button
+                  onClick={converter}
+                  disabled={!amount ? true : false}
+                  className="btn btn-convert"
+                >
+                  Convert
+                </button>
               </div>
             </div>
-            <div className="mb-3 d-flex justify-content-center">
-              <button
-                class="btn btn-swap"
-                aria-label="Swap"
-                onClick={() => setPair({ from: pair.to, to: pair.from })}
-              >
-                <i class="bi text-light bi-arrow-repeat"></i>
-              </button>
-            </div>
-            <div className=" mb-3">
-              <label className="form-label">To</label>
-              <div className="input-group">
-                <span className="input-group-text">
-                  <img src={pair.to && pair.to.flag} width="50" />
-                </span>
-                <select
-                  className="form-select"
-                  onChange={(e) => handlePair(e.target.value, "to")}
-                >
-                  <option value={pair.to && pair.to.obj}>
-                    {pair.to && pair.to.currency_name}
-                  </option>
-
-                  {currencies.map((currency, index) => {
-                    return (
-                      <option key={index} value={currency.obj}>
-                        {currency.currency_name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
-            {!isEmpty(output) && (
-              <p className="text-light">
-                {output.amount} {output.from} =<br />
-                <span>
-                  {output.result} {output.to}
-                </span>
-              </p>
-            )}
-
-            <div className="mb-3 d-flex justify-content-center">
-              <button
-                onClick={converter}
-                disabled={!amount ? true : false}
-                class="btn btn-convert"
-              >
-                Convert
-              </button>
-            </div>
-          </div>
+          ) : (
+            <div>Loading ... </div>
+          )}
           <p className="copyright">
             Made with <i className="bi bi-heart"></i> By Yanal Shoubaki
           </p>
