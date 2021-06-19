@@ -1,0 +1,43 @@
+.converter {
+  height: 100vh;
+  background: #dbe6fd;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  h1 {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+  .block {
+    margin: 0 auto;
+    background: #293b5f;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #47597e;
+    padding: 30px;
+    .form-label {
+      color: #fff;
+      display: block;
+    }
+    .btn-swap {
+      i {
+        font-size: 28px;
+        color: #dbe6fd;
+      }
+    }
+    .btn-convert {
+      background-color: #dbe6fd;
+      color: #293b5f;
+      font-size: 20px;
+      font-weight: 600;
+      width: 100%;
+    }
+  }
+  .copyright {
+    i {
+      color: red;
+    }
+    margin-top: 10px;
+    text-align: center;
+  }
+}
