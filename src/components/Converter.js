@@ -22,7 +22,12 @@ const Converter = () => {
         axios
           .get(
             `https://restcountries.eu/rest/v2/all
-      `
+      `,
+            {
+              Headers: {
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
           )
           .then((res) => {
             const countries = res.data;
